@@ -1,0 +1,378 @@
+/* PresionDelGasto.css */
+:root {
+  --color-primary: #611232;
+  --color-primary-light: #872349;
+  --color-primary-dark: #4a0e27;
+  --color-secondary: #A57F2C;
+  --color-secondary-light: #c49a3b;
+  --color-secondary-dark: #876722;
+}
+
+.presion-gasto-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+h1 {
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-secondary);
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: var(--color-primary-dark);
+  margin: 15px 0;
+  font-size: 1.5rem;
+}
+
+h3 {
+  color: var(--color-primary);
+  font-size: 1.3rem;
+  margin: 15px 0 10px 0;
+  padding-left: 5px;
+  border-left: 4px solid var(--color-secondary);
+}
+
+.loading, .error, .no-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.loading {
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+.error {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.no-selection {
+  color: #555;
+  flex-direction: column;
+}
+
+.no-selection p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.tables-container {
+  margin-top: 20px;
+}
+
+.convocatoria-table {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.datos-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  table-layout: fixed;
+}
+
+.datos-table th,
+.datos-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.column-header, .row-header {
+  background-color: rgba(97, 18, 50, 0.05);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.year-column {
+  background-color: rgba(165, 127, 44, 0.15);
+  color: var(--color-secondary-dark);
+  font-weight: 600;
+}
+
+.data-cell {
+  color: #333;
+}
+
+.subtotal {
+  font-weight: 600;
+  background-color: rgba(97, 18, 50, 0.1);
+}
+
+.percentage {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.filter-label {
+  font-size: 1rem;
+  color: var(--color-secondary-dark);
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  color: var(--color-secondary-dark);
+  font-weight: normal;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background-color: rgba(97, 18, 50, 0.05);
+  border-radius: 8px;
+  color: var(--color-primary);
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.editable {
+  position: relative;
+}
+
+.editable-input {
+  width: 95%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  color: var(--color-primary-dark);
+}
+
+.editable-input:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(165, 127, 44, 0.2);
+}
+
+input[type="number"].editable-input {
+  appearance: textfield;
+}
+
+input[type="number"].editable-input::-webkit-outer-spin-button,
+input[type="number"].editable-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding: 10px;
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #ccc;
+  color: #666;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+.save-button svg {
+  margin-right: 8px;
+}
+
+.save-button.active {
+  background-color: var(--color-secondary);
+  color: white;
+  cursor: pointer;
+}
+
+.save-button.active:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(46, 125, 50, 0.1);
+  color: #2e7d32;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* Estilos para el layout flexible de las tablas */
+.tables-flex-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.datos-table {
+  flex: 3; /* La tabla principal ocupa más espacio */
+}
+
+/* Estilos para la tabla Total */
+.total-table {
+  flex: 1;
+  min-width: 250px;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.total-header {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+  font-size: 1.1rem;
+}
+
+.total-row-header {
+  padding: 10px;
+  font-weight: 600;
+  background-color: rgba(97, 18, 50, 0.05);
+  color: var(--color-primary-dark);
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.total-cell {
+  padding: 10px;
+  text-align: right;
+  border: 1px solid #ddd;
+}
+
+.total-highlight {
+  background-color: rgba(165, 127, 44, 0.1);
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+}
+
+/* Estilos para el contenedor de convocatoria */
+.convocatoria-container {
+  margin-bottom: 30px;
+}
+
+/* Estilos para la tabla resumen principal */
+.resumen-table-container {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+.resumen-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.resumen-table th,
+.resumen-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.highlight-cell {
+  background-color: rgba(255, 215, 0, 0.2); /* Color amarillo para destacar */
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+}
+
+.highlight-input {
+  background-color: rgba(255, 215, 0, 0.1);
+  font-weight: 600;
+}
+
+.readonly-cell {
+  background-color: rgba(240, 240, 240, 0.5);
+  color: #555;
+}
+
+.anios-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .tables-flex-container {
+    flex-direction: column;
+  }
+  
+  .datos-table, .total-table {
+    width: 100%;
+  }
+  
+  .total-table {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .presion-gasto-container {
+    flex-direction: column;
+  }
+  
+  .datos-table {
+    font-size: 0.9rem;
+  }
+  
+  .column-header, .row-header, .year-column, .data-cell {
+    padding: 8px 5px;
+  }
+  
+  .total-header, .total-row-header, .total-cell {
+    padding: 8px 5px;
+    font-size: 0.9rem;
+  }
+  
+  .resumen-table th,
+  .resumen-table td {
+    padding: 8px 5px;
+    font-size: 0.9rem;
+  }
+}

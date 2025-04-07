@@ -1,0 +1,313 @@
+.escenario-item, .convocatoria-item, .accordion-header, .sort-option, .sidebar-footer {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #611232;
+  --color-primary-light: #872349;
+  --color-primary-dark: #4a0e27;
+  --color-secondary: #A57F2C;
+  --color-secondary-light: #c49a3b;
+  --color-secondary-dark: #876722;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: var(--color-primary);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-header {
+  padding: 20px 15px;
+  background-color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo-icon {
+  font-size: 22px;
+  color: var(--color-secondary-light);
+  margin-right: 10px;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sidebar-section {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sidebar-section h3 {
+  font-size: 1rem;
+  margin: 0 0 15px 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-secondary-light);
+}
+
+.sidebar-section h3:not(:first-child) {
+  margin-top: 20px;
+}
+
+.sidebar-section h3 svg {
+  margin-right: 8px;
+}
+
+.search-container {
+  margin-bottom: 15px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.accordion-container {
+  margin-bottom: 10px;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.accordion-header:hover {
+  background-color: var(--color-secondary);
+}
+
+.accordion-header svg {
+  margin-right: 10px;
+  font-size: 0.9rem;
+}
+
+.accordion-header span {
+  font-weight: 500;
+}
+
+.escenarios-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.escenario-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.escenario-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.escenario-item.selected, .convocatoria-item.selected {
+  background-color: var(--color-secondary);
+  color: white;
+  font-weight: 500;
+}
+
+.loading-message, .error-message, .no-results {
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.loading-message {
+  color: var(--color-secondary-light);
+}
+
+.error-message {
+  color: #f8d7da;
+}
+
+.no-results {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.convocatorias-list {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.convocatoria-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.convocatoria-item:hover {
+  background-color: var(--color-secondary-light);
+}
+
+.sort-options {
+  margin-top: 10px;
+}
+
+.sort-options h4 {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 8px 0;
+}
+
+.sort-option {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.85rem;
+}
+
+.sort-option svg {
+  margin-right: 8px;
+}
+
+.sort-option:hover {
+  background-color: var(--color-secondary-light);
+}
+
+.sort-option.selected {
+  background-color: var(--color-secondary);
+  color: white;
+  font-weight: 500;
+}
+
+.add-escenario-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.add-escenario-btn svg {
+  margin-right: 8px;
+}
+
+.add-escenario-btn:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 15px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  background-color: var(--color-primary-dark);
+}
+
+.escenarios-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.escenarios-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.escenarios-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+.convocatorias-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.convocatorias-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.convocatorias-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+.main-content {
+  margin-left: 280px; 
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: var(--color-primary-dark);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    position: relative;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .escenarios-list, .convocatorias-list {
+    max-height: 200px;
+  }
+}

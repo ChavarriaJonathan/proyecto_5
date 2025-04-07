@@ -1,0 +1,298 @@
+.incremento-presupuesto-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .incremento-presupuesto-container h3 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    border-left: 4px solid var(--color-secondary);
+    display: flex;
+    align-items: center;
+  }
+  
+  .section-icon {
+    margin-right: 8px;
+    color: var(--color-secondary);
+  }
+  
+  .incremento-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .incremento-card {
+    width: 220px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .incremento-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-header {
+    padding: 15px;
+    background-color: var(--color-primary-light);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+  }
+  
+  .porcentaje {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .percent-icon {
+    margin-right: 4px;
+    font-size: 1.2rem;
+  }
+  
+  .titulo {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  
+  .slider-container {
+    padding: 15px 15px 5px;
+    background-color: var(--color-primary-dark);
+    position: relative;
+  }
+  
+  .porcentaje-slider {
+    width: 100%;
+    height: 8px;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .porcentaje-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .porcentaje-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .porcentaje-slider:focus {
+    outline: none;
+  }
+  
+  .porcentaje-slider:active::-webkit-slider-thumb {
+    transform: scale(1.1);
+  }
+  
+  .porcentaje-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: var(--color-primary-dark);
+    gap: 10px;
+  }
+  
+  .porcentaje-input {
+    width: 80px;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+  }
+  
+  .porcentaje-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(165, 127, 44, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .porcentaje-input::-webkit-outer-spin-button,
+  .porcentaje-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .btn-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+  
+  .btn-small svg {
+    font-size: 1rem;
+  }
+  
+  .btn-minus {
+    background-color: #cccccc;
+  }
+  
+  .btn-minus[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .btn-plus {
+    background-color: var(--color-secondary);
+  }
+  
+  .btn-plus[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .btn-small:active:not([disabled]) {
+    transform: scale(0.95);
+  }
+  
+  .card-info {
+    padding: 15px;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  
+  .info-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .info-label {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  
+  .info-value {
+    font-weight: 600;
+    color: var(--color-secondary-dark);
+    text-align: right;
+  }
+  
+  .actions-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #666;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+  }
+  
+  .save-button svg {
+    margin-right: 8px;
+  }
+  
+  .save-button.active {
+    background-color: var(--color-secondary);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .save-button.active:hover {
+    background-color: var(--color-secondary-dark);
+  }
+  
+  .save-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(211, 47, 47, 0.1);
+    color: #d32f2f;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--color-secondary);
+  }
+  
+  @media (max-width: 768px) {
+    .incremento-cards-container {
+      justify-content: center;
+    }
+    
+    .incremento-card {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
