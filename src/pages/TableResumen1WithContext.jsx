@@ -71,7 +71,6 @@ const TableResumen1WithContext = () => {
         r1_presion_gasto_proyectada: item.r1_presion_gasto_proyectada,
         r1_monto_total_comprometido: item.r1_monto_total_comprometido,
         r1_deficit: item.r1_deficit,
-        // También enviamos las versiones formateadas para que el servidor pueda manejarlas
         r1_presupuestio_bruto_formatted: item.r1_presupuestio_bruto_formatted,
         r1_presion_gasto_realv_formatted: item.r1_presion_gasto_realv_formatted,
         r1_presupuesto_comprometer_formatted: item.r1_presupuesto_comprometer_formatted,
@@ -80,11 +79,16 @@ const TableResumen1WithContext = () => {
         r1_deficit_formatted: item.r1_deficit_formatted
       }));
       
-      console.log("Datos a guardar:", dataToSend);
-      
+      // Configurar correctamente la petición AJAX
       const response = await axios.post(
         'http://localhost/proyecto_5/backend/table-resumen1/updateTablaResumen1.php',
-        { data: dataToSend }
+        { data: dataToSend },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        }
       );
       
       if (response.data.success) {
@@ -92,13 +96,8 @@ const TableResumen1WithContext = () => {
         setGlobalSuccessMessage('Datos de resumen financiero guardados correctamente');
         setEdited(false);
         
-        // Notificar a otros componentes que deben actualizar sus datos
         triggerRefresh();
-        
-        // Esperar un momento antes de recargar los datos
-        setTimeout(() => {
-          fetchResumenData();
-        }, 500);
+        await fetchResumenData();
       } else {
         setError('Error al guardar los datos: ' + response.data.message);
         setGlobalError('Error al guardar datos de resumen');

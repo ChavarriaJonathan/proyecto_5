@@ -9,6 +9,7 @@ import TableResumen1WithContext from './TableResumen1WithContext';
 import { useEscenario } from './EscenarioContext';
 
 const PresionDelGastoWithContext = () => {
+  // Los hooks y contexto se mantienen igual
   const {
     selectedEscenario,
     selectedConvocatoria,
@@ -30,6 +31,7 @@ const PresionDelGastoWithContext = () => {
   const [edited, setEdited] = useState(false);
   const [aniosEdited, setAniosEdited] = useState(false);
   
+  // Los useEffect y funciones se mantienen igual
   useEffect(() => {
     if (selectedEscenario) {
       fetchTableData();
@@ -114,6 +116,7 @@ const PresionDelGastoWithContext = () => {
     }
   };
   
+  // Resto de funciones de procesamiento se mantienen igual
   const sortConvocatorias = (convocatorias, sortType) => {
     const sortedConvocatorias = [...convocatorias];
     
@@ -205,6 +208,7 @@ const PresionDelGastoWithContext = () => {
     };
   };
   
+  // Funciones de manejo de eventos se mantienen igual
   const handleNuevosProyectosChange = (convocatoriaIndex, value) => {
     const numValue = parseInt(value, 10);
     if (isNaN(numValue) || numValue < 0) return;
@@ -365,7 +369,13 @@ const PresionDelGastoWithContext = () => {
       
       const response = await axios.post(
         'http://localhost/proyecto_5/backend/Table-Convocatorias/updateTablaConvocatorias.php',
-        { data: updateData }
+        { data: updateData },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest' // Indica que es una petición AJAX
+          }
+        }
       );
       
       if (response.data.success) {
@@ -376,7 +386,8 @@ const PresionDelGastoWithContext = () => {
         // Notificar a otros componentes que deben actualizar sus datos
         triggerRefresh();
         
-        fetchTableData();
+        // Actualizar los datos localmente sin redireccionar
+        await fetchTableData();
       } else {
         setError('Error al guardar los datos: ' + response.data.message);
         setGlobalError('Error al guardar convocatorias');
@@ -391,6 +402,7 @@ const PresionDelGastoWithContext = () => {
     }
   };
   
+  // Función modificada para evitar redirecciones
   const handleSaveAniosChanges = async () => {
     try {
       setSaving(true);
@@ -408,7 +420,13 @@ const PresionDelGastoWithContext = () => {
       
       const response = await axios.post(
         'http://localhost/proyecto_5/backend/table-principal/updateTablaAniosData.php',
-        { data: updateAniosData }
+        { data: updateAniosData },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest' // Indica que es una petición AJAX
+          }
+        }
       );
       
       if (response.data.success) {
@@ -419,6 +437,7 @@ const PresionDelGastoWithContext = () => {
         // Notificar a otros componentes que deben actualizar sus datos
         triggerRefresh();
         
+        // Actualizar los datos localmente sin redireccionar
         await fetchAniosData();
       } else {
         setError('Error al guardar los datos del escenario: ' + response.data.message);
@@ -523,7 +542,7 @@ const PresionDelGastoWithContext = () => {
                     </tr>
                     <tr>
                       <td className="row-header">2025 Ppto X comp</td>
-{aniosData.map(item => (
+                      {aniosData.map(item => (
                         <td key={`pxc-${item.id_años_datos}`} className="data-cell readonly-cell">
                           {item.ad_2025_ppto_x_comp}
                         </td>
@@ -545,9 +564,6 @@ const PresionDelGastoWithContext = () => {
                 )}
               </div>
             )}
-            
-            {/* Renderizar el componente TableResumen1WithContext */}
-            <TableResumen1WithContext />
             
             {convocatorias.length > 0 ? (
               <>
@@ -656,8 +672,11 @@ const PresionDelGastoWithContext = () => {
                   </button>
                 </div>
                 
-                {/* Renderizar el componente IncrementoPresupuestoCardsWithContext */}
+                {/* Primero renderizamos IncrementoPresupuestoCardsWithContext */}
                 <IncrementoPresupuestoCardsWithContext />
+                
+{/* Y después TableResumen1WithContext - este es el orden que queremos */}
+<TableResumen1WithContext />
               </>
             ) : (
               <div className="no-data">

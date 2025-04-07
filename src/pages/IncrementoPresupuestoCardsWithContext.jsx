@@ -146,55 +146,63 @@ const IncrementoPresupuestoCardsWithContext = () => {
     });
   };
 
-  const handleSaveChanges = async () => {
-    try {
-      setSaving(true);
-      
-      // Preparar datos para enviar al servidor
-      const dataToSend = incrementoData.map(item => ({
-        id_presupuesto: item.id_presupuesto,
-        id_esenario: item.id_esenario,
-        id_año: item.id_año,
-        ip_total_bruto: item.ip_total_bruto,
-        ip_total_pre: item.ip_total_pre,
-        ip_porcentaje: item.ip_porcentaje,
-        ip_total_bruto_formatted: item.ip_total_bruto_formatted,
-        ip_porcentaje_formatted: item.ip_porcentaje_formatted,
-        a_numero_año: item.a_numero_año
-      }));
-      
-      console.log("Datos a guardar:", dataToSend);
-      
-      const response = await axios.post(
-        'http://localhost/proyecto_5/backend/incremento_presupuesto/updateIncrementoPresupuesto.php',
-        { data: dataToSend }
-      );
-      
-      if (response.data.success) {
-        setSuccessMessage('Datos de incremento guardados correctamente');
-        setGlobalSuccessMessage('Datos de incremento de presupuesto guardados correctamente');
-        setEdited(false);
-        
-        // Notificar a otros componentes que deben actualizar sus datos
-        triggerRefresh();
-        
-        // Esperar un momento antes de recargar los datos
-        setTimeout(() => {
-          fetchIncrementoData();
-        }, 500);
-      } else {
-        setError('Error al guardar los datos: ' + response.data.message);
-        setGlobalError('Error al guardar incremento de presupuesto');
+// Para IncrementoPresupuestoCardsWithContext.jsx
+
+const handleSaveChanges = async () => {
+  try {
+    setSaving(true);
+    
+    // Preparar datos para enviar al servidor
+    const dataToSend = incrementoData.map(item => ({
+      id_presupuesto: item.id_presupuesto,
+      id_esenario: item.id_esenario,
+      id_año: item.id_año,
+      ip_total_bruto: item.ip_total_bruto,
+      ip_total_pre: item.ip_total_pre,
+      ip_porcentaje: item.ip_porcentaje,
+      ip_total_bruto_formatted: item.ip_total_bruto_formatted,
+      ip_porcentaje_formatted: item.ip_porcentaje_formatted,
+      a_numero_año: item.a_numero_año
+    }));
+    
+    console.log("Datos a guardar:", dataToSend);
+    
+    // Configurar correctamente la petición AJAX para prevenir redirecciones
+    const response = await axios.post(
+      'http://localhost/proyecto_5/backend/incremento_presupuesto/updateIncrementoPresupuesto.php',
+      { data: dataToSend },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest' // Indica que es una petición AJAX
+        }
       }
+    );
+    
+    if (response.data.success) {
+      // Mostrar mensaje de éxito sin redireccionar
+      setSuccessMessage('Datos de incremento guardados correctamente');
+      setGlobalSuccessMessage('Datos de incremento de presupuesto guardados correctamente');
+      setEdited(false);
       
-      setSaving(false);
-    } catch (error) {
-      console.error('Error saving incremento data:', error);
-      setError('Error de conexión al servidor');
-      setGlobalError('Error de conexión al guardar incremento');
-      setSaving(false);
+      // Notificar a otros componentes que deben actualizar sus datos
+      triggerRefresh();
+      
+      // Actualizar los datos locales sin redireccionar
+      await fetchIncrementoData();
+    } else {
+      setError('Error al guardar los datos: ' + response.data.message);
+      setGlobalError('Error al guardar incremento de presupuesto');
     }
-  };
+    
+    setSaving(false);
+  } catch (error) {
+    console.error('Error saving incremento data:', error);
+    setError('Error de conexión al servidor');
+    setGlobalError('Error de conexión al guardar incremento');
+    setSaving(false);
+  }
+};
 
   if (loading) {
     return <div className="loading">Cargando datos de incremento...</div>;
