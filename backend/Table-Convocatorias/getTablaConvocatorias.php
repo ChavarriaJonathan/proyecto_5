@@ -2,14 +2,15 @@
 // Ruta: http://localhost/proyecto_5/backend/Table-Convocatorias/getTablaConvocatorias.php
 
 // Configuración para CORS
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
+header('Access-Control-Allow-Credentials: true');
 
-// Si es una solicitud OPTIONS (preflight), solo respondemos con los encabezados CORS
+// Handle preflight OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
+    http_response_code(200);
+    exit;
 }
 
 // Verificar si se recibió un ID de escenario

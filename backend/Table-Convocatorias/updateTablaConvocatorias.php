@@ -1,15 +1,16 @@
 <?php
 // Ruta: http://localhost/proyecto_5/backend/Table-Convocatorias/updateTablaConvocatorias.php
 
-// Configuración para CORS
-header('Access-Control-Allow-Origin: *');
+// Configuración para CORS - UPDATED HEADERS
+header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 header('Content-Type: application/json');
 
-// Si es una solicitud OPTIONS, solo respondemos con los encabezados CORS
+// Si es una solicitud OPTIONS (preflight), solo respondemos con los encabezados CORS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
+    http_response_code(200);
+    exit;
 }
 
 // Verificar si es una solicitud POST
