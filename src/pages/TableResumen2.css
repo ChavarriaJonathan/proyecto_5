@@ -1,0 +1,149 @@
+.resumen2-container {
+    margin-top: 10px;  /* Less space than resumen1 to maintain proximity */
+    margin-bottom: 40px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .resumen2-container h3 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    border-left: 4px solid var(--color-secondary);
+    display: flex;
+    align-items: center;
+  }
+  
+  .section-icon {
+    margin-right: 8px;
+    color: var(--color-secondary);
+  }
+  
+  .resumen2-table-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow-x: auto;
+  }
+  
+  .resumen2-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .resumen2-table th,
+  .resumen2-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .resumen2-table th {
+    background-color: rgba(97, 18, 50, 0.05);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+  }
+  
+  .resumen2-table .row-header {
+    text-align: left;
+    font-weight: 600;
+    width: 20%;
+  }
+  
+  .resumen2-table .year-header {
+    background-color: rgba(165, 127, 44, 0.15);
+    color: var(--color-secondary-dark);
+    font-weight: 600;
+  }
+  
+  .resumen2-table .total-projects {
+    background-color: rgba(97, 18, 50, 0.1);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  
+  .actions-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #666;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+  }
+  
+  .save-button svg {
+    margin-right: 8px;
+  }
+  
+  .save-button.active {
+    background-color: var(--color-secondary);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .save-button.active:hover {
+    background-color: var(--color-secondary-dark);
+  }
+  
+  .save-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(211, 47, 47, 0.1);
+    color: #d32f2f;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--color-secondary);
+  }
+  
+  @media (max-width: 768px) {
+    .resumen2-table {
+      font-size: 0.9rem;
+    }
+    
+    .resumen2-table th, 
+    .resumen2-table td {
+      padding: 8px 5px;
+    }
+  }

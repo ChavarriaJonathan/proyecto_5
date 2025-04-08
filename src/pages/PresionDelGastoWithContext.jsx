@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useTable } from 'react-table';
 import SidebarWithContext from '../components/SidebarWithContext';
 import './PresionDelGasto.css';
 import axios from 'axios';
 import { FaSave } from 'react-icons/fa';
 import IncrementoPresupuestoCardsWithContext from './IncrementoPresupuestoCardsWithContext';
 import TableResumen1WithContext from './TableResumen1WithContext';
+import TableResumen2WithContext from './TableResumen2WithContext';
 import { useEscenario } from './EscenarioContext';
 
 const PresionDelGastoWithContext = () => {
-  // Los hooks y contexto se mantienen igual
   const {
     selectedEscenario,
     selectedConvocatoria,
@@ -31,7 +30,6 @@ const PresionDelGastoWithContext = () => {
   const [edited, setEdited] = useState(false);
   const [aniosEdited, setAniosEdited] = useState(false);
   
-  // Los useEffect y funciones se mantienen igual
   useEffect(() => {
     if (selectedEscenario) {
       fetchTableData();
@@ -116,7 +114,6 @@ const PresionDelGastoWithContext = () => {
     }
   };
   
-  // Resto de funciones de procesamiento se mantienen igual
   const sortConvocatorias = (convocatorias, sortType) => {
     const sortedConvocatorias = [...convocatorias];
     
@@ -208,7 +205,6 @@ const PresionDelGastoWithContext = () => {
     };
   };
   
-  // Funciones de manejo de eventos se mantienen igual
   const handleNuevosProyectosChange = (convocatoriaIndex, value) => {
     const numValue = parseInt(value, 10);
     if (isNaN(numValue) || numValue < 0) return;
@@ -373,7 +369,7 @@ const PresionDelGastoWithContext = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest' // Indica que es una petición AJAX
+            'X-Requested-With': 'XMLHttpRequest'
           }
         }
       );
@@ -383,10 +379,7 @@ const PresionDelGastoWithContext = () => {
         setGlobalSuccessMessage('Datos de convocatorias guardados correctamente');
         setEdited(false);
         
-        // Notificar a otros componentes que deben actualizar sus datos
         triggerRefresh();
-        
-        // Actualizar los datos localmente sin redireccionar
         await fetchTableData();
       } else {
         setError('Error al guardar los datos: ' + response.data.message);
@@ -402,7 +395,6 @@ const PresionDelGastoWithContext = () => {
     }
   };
   
-  // Función modificada para evitar redirecciones
   const handleSaveAniosChanges = async () => {
     try {
       setSaving(true);
@@ -424,7 +416,7 @@ const PresionDelGastoWithContext = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest' // Indica que es una petición AJAX
+            'X-Requested-With': 'XMLHttpRequest'
           }
         }
       );
@@ -434,10 +426,7 @@ const PresionDelGastoWithContext = () => {
         setGlobalSuccessMessage('Datos de escenario guardados correctamente');
         setAniosEdited(false);
         
-        // Notificar a otros componentes que deben actualizar sus datos
         triggerRefresh();
-        
-        // Actualizar los datos localmente sin redireccionar
         await fetchAniosData();
       } else {
         setError('Error al guardar los datos del escenario: ' + response.data.message);
@@ -672,11 +661,10 @@ const PresionDelGastoWithContext = () => {
                   </button>
                 </div>
                 
-                {/* Primero renderizamos IncrementoPresupuestoCardsWithContext */}
+                {/* Componentes adicionales */}
                 <IncrementoPresupuestoCardsWithContext />
-                
-{/* Y después TableResumen1WithContext - este es el orden que queremos */}
-<TableResumen1WithContext />
+                <TableResumen1WithContext />
+                <TableResumen2WithContext />
               </>
             ) : (
               <div className="no-data">
