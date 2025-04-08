@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import PresionDelGastoWithContext from './pages/PresionDelGastoWithContext';
+import Resumen from './pages/Resumen';
 import { EscenarioProvider } from './pages/EscenarioContext';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/Home" element={<Home />} />
           <Route path="/PresionDelGasto" element={<PresionDelGastoWithContext />} />
+          <Route path="/Resumen" element={<Resumen />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </EscenarioProvider>
