@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useEscenario } from './EscenarioContext';
-import SidebarWithContext from '../components/SidebarWithContext';
+import SidebarResumen from './SidebarResumen';
 import axios from 'axios';
 import './Resumen.css';
 import { FaFileAlt, FaChartPie, FaProjectDiagram, FaMoneyBillWave, FaExclamationTriangle } from 'react-icons/fa';
@@ -8,7 +8,8 @@ import { FaFileAlt, FaChartPie, FaProjectDiagram, FaMoneyBillWave, FaExclamation
 const Resumen = () => {
   const { selectedEscenario, refreshTrigger } = useEscenario();
   
-  const [activeTab, setActiveTab] = useState('proyectos');
+  // Cambiado el valor inicial a 'dashboard' en lugar de 'proyectos'
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [resumenData, setResumenData] = useState(null);
@@ -185,12 +186,6 @@ const Resumen = () => {
     const ultimoAño = resumenData.años[resumenData.años.length - 1];
     const primerAño = resumenData.años[0];
     
-    // Calcular totales para todos los años
-    const totalProyectos = resumenData.años.reduce((sum, año) => sum + año.total_proyectos, 0);
-    const totalPresupuesto = resumenData.años.reduce((sum, año) => sum + año.presupuesto_bruto, 0);
-    const totalPresionGastoProyectada = resumenData.años.reduce((sum, año) => sum + año.presion_gasto_proyectada, 0);
-    const promedioIncrementoPresupuestal = resumenData.años.reduce((sum, año) => sum + año.incremento_porcentaje, 0) / resumenData.años.length;
-    
     return (
       <>
         <h3 className="section-header"><FaChartPie /> Resumen General</h3>
@@ -202,22 +197,6 @@ const Resumen = () => {
           <div className="stat-card">
             <div className="stat-title">Años Analizados</div>
             <div className="stat-value">{resumenData.años.length}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-title">Total Proyectos (Todos los años)</div>
-            <div className="stat-value">{totalProyectos.toLocaleString()}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-title">Costo Convocatorias (Total)</div>
-            <div className="stat-value">${totalPresionGastoProyectada.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-title">Presupuesto Bruto Total</div>
-            <div className="stat-value">${totalPresupuesto.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-title">Incremento Presupuestal Promedio</div>
-            <div className="stat-value">{promedioIncrementoPresupuestal.toFixed(1)}%</div>
           </div>
         </div>
 
@@ -429,7 +408,7 @@ const Resumen = () => {
 
   return (
     <div className="resumen-container">
-      <SidebarWithContext />
+      <SidebarResumen />
       <div className="resumen-content">
         <h1><FaFileAlt style={{ marginRight: "10px" }} /> Resumen Consolidado</h1>
         {renderContent()}

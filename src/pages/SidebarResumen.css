@@ -1,0 +1,61 @@
+/* SidebarResumen.css */
+/* Estilos específicos para la barra lateral en la página de Resumen */
+
+/* Ajustes adicionales para SidebarResumen */
+.sidebar .sidebar-header h2 {
+    font-size: 1.1rem; /* Texto un poco más pequeño para mejor ajuste */
+  }
+  
+  .resumen-container .escenarios-list {
+    max-height: 400px; /* Mayor espacio para la lista de escenarios */
+  }
+  
+  /* Para asegurar que la lista se mantenga visible */
+  .sidebar .escenarios-list {
+    overflow-y: auto;
+  }
+  
+  /* Estilo para cuando hay un escenario seleccionado */
+  .escenario-item.selected {
+    background-color: var(--color-secondary);
+    color: white;
+    font-weight: 600;
+  }
+  
+  /* Aseguramos que la sección de escenarios esté siempre expandida */
+  .resumen-container .accordion-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Hacemos que la lista de escenarios sea más grande para facilitar la selección */
+  .resumen-container .escenario-item {
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .resumen-container .escenario-item:hover {
+    transform: translateX(5px);
+  }
+  
+  /* Estilo para mensajes de estado */
+  .resumen-container .loading-message,
+  .resumen-container .error-message,
+  .resumen-container .no-results {
+    padding: 15px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+  
+  .resumen-container .loading-message {
+    background-color: rgba(165, 127, 44, 0.1);
+  }
+  
+  .resumen-container .error-message {
+    background-color: rgba(211, 47, 47, 0.1);
+  }
+  
+  .resumen-container .no-results {
+    background-color: rgba(97, 18, 50, 0.05);
+  }
