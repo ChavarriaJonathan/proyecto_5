@@ -1,3 +1,6 @@
+// Función para actualizar el package.json:
+// npm install jspdf html2canvas --save
+
 import React, { useState, useEffect } from 'react';
 import SidebarWithContext from '../components/SidebarWithContext';
 import './PresionDelGasto.css';
@@ -6,6 +9,8 @@ import { FaSave } from 'react-icons/fa';
 import IncrementoPresupuestoCardsWithContext from './IncrementoPresupuestoCardsWithContext';
 import TableResumen1WithContext from './TableResumen1WithContext';
 import TableResumen2WithContext from './TableResumen2WithContext';
+import PDFExportButton from './PDFExportButton';
+import PDFExportModal from '../components/PDFExportModal';
 import { useEscenario } from './EscenarioContext';
 
 const PresionDelGastoWithContext = () => {
@@ -30,12 +35,48 @@ const PresionDelGastoWithContext = () => {
   const [edited, setEdited] = useState(false);
   const [aniosEdited, setAniosEdited] = useState(false);
   
+  // Estado para el modal de exportación a PDF
+  const [isPDFModalOpen, setIsPDFModalOpen] = useState(false);
+  
+  // Estados para datos de resumen (necesarios para el PDF)
+  const [resumen1Data, setResumen1Data] = useState([]);
+  const [resumen2Data, setResumen2Data] = useState([]);
+  
   useEffect(() => {
     if (selectedEscenario) {
       fetchTableData();
       fetchAniosData();
+      fetchResumen1Data();
+      fetchResumen2Data();
     }
   }, [selectedEscenario, selectedConvocatoria, sortOption, refreshTrigger]);
+  
+  // Añadimos funciones para obtener datos de resumen
+  const fetchResumen1Data = async () => {
+    if (!selectedEscenario) return;
+    
+    try {
+      const response = await axios.get(`http://localhost/proyecto_5/backend/table-resumen1/getTablaResumen1.php?id_escenario=${selectedEscenario.id_escenario}`);
+      if (response.data.success) {
+        setResumen1Data(response.data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching resumen1 data:', error);
+    }
+  };
+  
+  const fetchResumen2Data = async () => {
+    if (!selectedEscenario) return;
+    
+    try {
+      const response = await axios.get(`http://localhost/proyecto_5/backend/table-resumen2/getTablaResumen2.php?id_escenario=${selectedEscenario.id_escenario}`);
+      if (response.data.success) {
+        setResumen2Data(response.data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching resumen2 data:', error);
+    }
+  };
 
   useEffect(() => {
     if (successMessage) {
@@ -630,13 +671,7 @@ const PresionDelGastoWithContext = () => {
                                   onChange={(e) => handleNuevosProyectosChange(convIndex, e.target.value)}
                                   className="editable-input"
                                 />
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="total-row-header">Costo X proyecto</td>
-                              <td className="total-cell">
-                                {formatCurrency(convocatoria.totales?.costoXProyecto || 0)}
-                              </td>
+</td>
                             </tr>
                             <tr>
                               <td className="total-row-header">Costo X convocatoria</td>
@@ -665,6 +700,18 @@ const PresionDelGastoWithContext = () => {
                 <IncrementoPresupuestoCardsWithContext />
                 <TableResumen1WithContext />
                 <TableResumen2WithContext />
+                
+                {/* Botón y Modal para exportar a PDF */}
+                {selectedEscenario && <PDFExportButton onClick={() => setIsPDFModalOpen(true)} />}
+                <PDFExportModal 
+                  isOpen={isPDFModalOpen} 
+                  onClose={() => setIsPDFModalOpen(false)} 
+                  selectedEscenario={selectedEscenario}
+                  convocatorias={convocatorias}
+                  aniosData={aniosData}
+                  resumen1Data={resumen1Data}
+                  resumen2Data={resumen2Data}
+                />
               </>
             ) : (
               <div className="no-data">
