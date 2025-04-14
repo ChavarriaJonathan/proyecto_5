@@ -15,8 +15,10 @@
 }
 
 .main-content {
+  margin-top: 55px;
   flex: 1;
   padding: 20px;
+  font-weight: 600;
   background-color: #ffffff;
   overflow-y: auto;
 }

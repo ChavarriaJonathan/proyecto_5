@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaChartLine, FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaSearch, FaChartLine, FaChevronDown, FaChevronRight, FaListUl } from 'react-icons/fa';
 import axios from 'axios';
 import '../components/Sidebar.css';
 import './SidebarResumen.css';
@@ -54,6 +54,11 @@ const SidebarResumen = () => {
     selectEscenario(escenario);
   };
 
+  const handleMostrarTodosClick = () => {
+    // Seleccionar null para indicar que se deben mostrar todos los escenarios
+    selectEscenario({ id_escenario: 'all', e_nombre: 'Todos los Escenarios' });
+  };
+
   const toggleEscenariosAccordion = () => {
     setEscenariosAccordionOpen(!escenariosAccordionOpen);
   };
@@ -85,6 +90,18 @@ const SidebarResumen = () => {
           
           {escenariosAccordionOpen && (
             <div className="escenarios-list">
+              {/* Opción para mostrar todos los escenarios */}
+              <div 
+                className={`escenario-item all-escenarios ${selectedEscenario && selectedEscenario.id_escenario === 'all' ? 'selected' : ''}`}
+                onClick={handleMostrarTodosClick}
+              >
+                <FaListUl />
+                Mostrar todos los escenarios
+              </div>
+              
+              {/* Separador entre la opción "Mostrar todos" y el resto de escenarios */}
+              <div className="escenarios-separator"></div>
+              
               {loading ? (
                 <div className="loading-message">Cargando...</div>
               ) : error ? (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; 
 import './Navbar.css';
-import { FaHome, FaFileAlt } from "react-icons/fa"; 
+import { FaHome, } from "react-icons/fa"; 
 
 const Navbar = () => {
     const location = useLocation(); 
@@ -33,7 +33,7 @@ const Navbar = () => {
                         to="/Resumen" 
                         className={location.pathname === '/Resumen' ? 'active-link' : ''}
                     >
-                        <FaFileAlt style={{ marginRight: "5px" }} /> Resumen
+                       Resumen
                     </Link>
                 </li>
             </ul>

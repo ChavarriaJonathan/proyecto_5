@@ -25,8 +25,12 @@ export const EscenarioProvider = ({ children }) => {
   // Función para seleccionar un escenario
   const selectEscenario = (escenario) => {
     setSelectedEscenario(escenario);
-    // Al cambiar de escenario, resetear la convocatoria seleccionada
-    setSelectedConvocatoria(null);
+    
+    // Si el escenario seleccionado no es 'all' (mostrar todos), resetear la convocatoria
+    if (escenario && escenario.id_escenario !== 'all') {
+      // Al cambiar de escenario, resetear la convocatoria seleccionada
+      setSelectedConvocatoria(null);
+    }
   };
   
   // Función para seleccionar una convocatoria

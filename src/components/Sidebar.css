@@ -32,6 +32,7 @@
 }
 
 .sidebar-header {
+  margin-top: 50px;
   padding: 20px 15px;
   background-color: var(--color-primary-dark);
   display: flex;
