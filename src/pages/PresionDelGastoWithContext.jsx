@@ -1,6 +1,3 @@
-// Función para actualizar el package.json:
-// npm install jspdf html2canvas --save
-
 import React, { useState, useEffect } from 'react';
 import SidebarWithContext from '../components/SidebarWithContext';
 import './PresionDelGasto.css';
@@ -20,10 +17,8 @@ const PresionDelGastoWithContext = () => {
     sortOption,
     refreshTrigger,
     triggerRefresh,
-    globalSuccessMessage,
-    globalError,
-    setGlobalError,
-    setGlobalSuccessMessage
+    setGlobalSuccessMessage,
+    setGlobalError
   } = useEscenario();
 
   const [convocatorias, setConvocatorias] = useState([]);
@@ -31,7 +26,6 @@ const PresionDelGastoWithContext = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [edited, setEdited] = useState(false);
   const [aniosEdited, setAniosEdited] = useState(false);
   
@@ -62,6 +56,7 @@ const PresionDelGastoWithContext = () => {
       }
     } catch (error) {
       console.error('Error fetching resumen1 data:', error);
+      setGlobalError('Error al obtener datos de resumen financiero');
     }
   };
   
@@ -75,17 +70,9 @@ const PresionDelGastoWithContext = () => {
       }
     } catch (error) {
       console.error('Error fetching resumen2 data:', error);
+      setGlobalError('Error al obtener datos de resumen de proyectos');
     }
   };
-
-  useEffect(() => {
-    if (successMessage) {
-      const timer = setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [successMessage]);
 
   const fetchTableData = async () => {
     try {
@@ -416,21 +403,18 @@ const PresionDelGastoWithContext = () => {
       );
       
       if (response.data.success) {
-        setSuccessMessage('Datos guardados correctamente');
         setGlobalSuccessMessage('Datos de convocatorias guardados correctamente');
         setEdited(false);
         
         triggerRefresh();
         await fetchTableData();
       } else {
-        setError('Error al guardar los datos: ' + response.data.message);
-        setGlobalError('Error al guardar convocatorias');
+        setGlobalError('Error al guardar convocatorias: ' + response.data.message);
       }
       
       setSaving(false);
     } catch (error) {
       console.error('Error saving data:', error);
-      setError('Error de conexión al servidor');
       setGlobalError('Error de conexión al guardar convocatorias');
       setSaving(false);
     }
@@ -463,21 +447,18 @@ const PresionDelGastoWithContext = () => {
       );
       
       if (response.data.success) {
-        setSuccessMessage('Datos de escenario guardados correctamente');
         setGlobalSuccessMessage('Datos de escenario guardados correctamente');
         setAniosEdited(false);
         
         triggerRefresh();
         await fetchAniosData();
       } else {
-        setError('Error al guardar los datos del escenario: ' + response.data.message);
-        setGlobalError('Error al guardar datos del escenario');
+        setGlobalError('Error al guardar datos del escenario: ' + response.data.message);
       }
       
       setSaving(false);
     } catch (error) {
       console.error('Error saving anios data:', error);
-      setError('Error de conexión al servidor');
       setGlobalError('Error de conexión al guardar años');
       setSaving(false);
     }
@@ -493,12 +474,6 @@ const PresionDelGastoWithContext = () => {
           <div className="loading">Cargando datos...</div>
         ) : error ? (
           <div className="error">{error}</div>
-        ) : globalSuccessMessage ? (
-          <div className="success">{globalSuccessMessage}</div>
-        ) : successMessage ? (
-          <div className="success">{successMessage}</div>
-        ) : globalError ? (
-          <div className="error">{globalError}</div>
         ) : selectedEscenario ? (
           <div className="tables-container">
             <h2>
@@ -671,7 +646,7 @@ const PresionDelGastoWithContext = () => {
                                   onChange={(e) => handleNuevosProyectosChange(convIndex, e.target.value)}
                                   className="editable-input"
                                 />
-</td>
+                              </td>
                             </tr>
                             <tr>
                               <td className="total-row-header">Costo X convocatoria</td>

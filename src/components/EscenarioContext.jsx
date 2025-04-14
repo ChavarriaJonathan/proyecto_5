@@ -44,12 +44,12 @@ export const EscenarioProvider = ({ children }) => {
     setRefreshTrigger(prev => prev + 1);
   };
   
-  // Limpiar mensajes de éxito después de 3 segundos
+  // Limpiar mensajes de éxito después de 1 segundos
   useEffect(() => {
     if (globalSuccessMessage) {
       const timer = setTimeout(() => {
         setGlobalSuccessMessage('');
-      }, 3000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [globalSuccessMessage]);
