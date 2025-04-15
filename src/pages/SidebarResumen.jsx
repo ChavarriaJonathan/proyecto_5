@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { FaSearch, FaChartLine, FaChevronDown, FaChevronRight, FaListUl } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaSearch, FaChartLine, FaListUl, FaCheck } from 'react-icons/fa';
 import axios from 'axios';
 import '../components/Sidebar.css';
 import './SidebarResumen.css';
 import { useEscenario } from './EscenarioContext';
 
-// Este componente es una versión simplificada del SidebarWithContext
-// que solo muestra la sección de escenarios para la página de Resumen
 const SidebarResumen = () => {
   const {
     selectedEscenario,
@@ -18,11 +16,34 @@ const SidebarResumen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [escenariosAccordionOpen, setEscenariosAccordionOpen] = useState(true); // Por defecto abierto
+  
+  // Estado para las sugerencias de búsqueda
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  
+  // Referencia para el dropdown de sugerencias
+  const suggestionsRef = useRef(null);
 
   useEffect(() => {
     fetchEscenarios();
+    
+    // Seleccionar "Resumen general" por defecto al cargar
+    selectEscenario({ id_escenario: 'all', e_nombre: 'Resumen general' });
   }, [refreshTrigger]);
+
+  // Efecto para manejar clics fuera del dropdown de sugerencias
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const fetchEscenarios = async () => {
     try {
@@ -43,7 +64,41 @@ const SidebarResumen = () => {
   };
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    const term = e.target.value;
+    setSearchTerm(term);
+    
+    if (term.trim().length > 0) {
+      // Filtrar escenarios que coinciden con el término de búsqueda
+      const filteredSuggestions = escenarios.filter(escenario => 
+        escenario.e_nombre.toLowerCase().includes(term.toLowerCase())
+      );
+      setSearchSuggestions(filteredSuggestions);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+  
+  const handleSearchFocus = () => {
+    if (searchTerm.trim().length > 0) {
+      setShowSuggestions(true);
+    }
+  };
+  
+  const handleSuggestionClick = (escenario) => {
+    setSearchTerm(escenario.e_nombre);
+    setShowSuggestions(false);
+    selectEscenario(escenario);
+  };
+  
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    
+    if (searchSuggestions.length > 0) {
+      // Seleccionar el primer escenario que coincide con la búsqueda
+      selectEscenario(searchSuggestions[0]);
+      setShowSuggestions(false);
+    }
   };
 
   const filteredEscenarios = escenarios.filter(escenario => 
@@ -54,13 +109,9 @@ const SidebarResumen = () => {
     selectEscenario(escenario);
   };
 
-  const handleMostrarTodosClick = () => {
-    // Seleccionar null para indicar que se deben mostrar todos los escenarios
-    selectEscenario({ id_escenario: 'all', e_nombre: 'Todos los Escenarios' });
-  };
-
-  const toggleEscenariosAccordion = () => {
-    setEscenariosAccordionOpen(!escenariosAccordionOpen);
+  const handleResumenGeneralClick = () => {
+    // Seleccionar 'all' para indicar que se debe mostrar el resumen general
+    selectEscenario({ id_escenario: 'all', e_nombre: 'Resumen general' });
   };
 
   return (
@@ -72,55 +123,71 @@ const SidebarResumen = () => {
       
       <div className="sidebar-section">
         <h3><FaSearch /> Buscar Escenario</h3>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Buscar escenario..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="search-input"
-          />
-        </div>
-        
-        <div className="accordion-container">
-          <div className="accordion-header" onClick={toggleEscenariosAccordion}>
-            {escenariosAccordionOpen ? <FaChevronDown /> : <FaChevronRight />}
-            <span>Mostrar Escenarios</span>
-          </div>
+        <div className="search-container" ref={suggestionsRef}>
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Buscar escenario..."
+              value={searchTerm}
+              onChange={handleSearch}
+              onFocus={handleSearchFocus}
+              className="search-input"
+            />
+          </form>
           
-          {escenariosAccordionOpen && (
-            <div className="escenarios-list">
-              {/* Opción para mostrar todos los escenarios */}
-              <div 
-                className={`escenario-item all-escenarios ${selectedEscenario && selectedEscenario.id_escenario === 'all' ? 'selected' : ''}`}
-                onClick={handleMostrarTodosClick}
-              >
-                <FaListUl />
-                Mostrar todos los escenarios
-              </div>
-              
-              {/* Separador entre la opción "Mostrar todos" y el resto de escenarios */}
-              <div className="escenarios-separator"></div>
-              
-              {loading ? (
-                <div className="loading-message">Cargando...</div>
-              ) : error ? (
-                <div className="error-message">{error}</div>
-              ) : filteredEscenarios.length > 0 ? (
-                filteredEscenarios.map(escenario => (
-                  <div 
-                    key={escenario.id_escenario} 
-                    className={`escenario-item ${selectedEscenario && selectedEscenario.id_escenario === escenario.id_escenario ? 'selected' : ''}`}
-                    onClick={() => handleEscenarioClick(escenario)}
-                  >
-                    {escenario.e_nombre}
-                  </div>
-                ))
-              ) : (
-                <div className="no-results">No se encontraron escenarios</div>
-              )}
+          {/* Dropdown de sugerencias de búsqueda */}
+          {showSuggestions && searchSuggestions.length > 0 && (
+            <div className="search-suggestions">
+              {searchSuggestions.map(escenario => (
+                <div 
+                  key={escenario.id_escenario} 
+                  className="search-suggestion-item"
+                  onClick={() => handleSuggestionClick(escenario)}
+                >
+                  <span>{escenario.e_nombre}</span>
+                  {selectedEscenario && selectedEscenario.id_escenario === escenario.id_escenario && (
+                    <FaCheck className="selected-icon" />
+                  )}
+                </div>
+              ))}
             </div>
           )}
+        </div>
+        
+        {/* Lista de escenarios siempre visible (sin acordeón) */}
+        <div className="escenarios-list-container">
+          <h4 className="escenarios-list-title">Escenarios disponibles</h4>
+          <div className="escenarios-list">
+            {/* Opción para resumen general (reemplazando "Mostrar todos los escenarios") */}
+            <div 
+              className={`escenario-item all-escenarios ${selectedEscenario && selectedEscenario.id_escenario === 'all' ? 'selected' : ''}`}
+              onClick={handleResumenGeneralClick}
+            >
+              <FaListUl className="resumen-icon" />
+              <span>Resumen general</span>
+            </div>
+            
+            {/* Separador entre la opción "Resumen general" y el resto de escenarios */}
+            <div className="escenarios-separator"></div>
+            
+            {loading ? (
+              <div className="loading-message">Cargando...</div>
+            ) : error ? (
+              <div className="error-message">{error}</div>
+            ) : filteredEscenarios.length > 0 ? (
+              filteredEscenarios.map(escenario => (
+                <div 
+                  key={escenario.id_escenario} 
+                  className={`escenario-item ${selectedEscenario && selectedEscenario.id_escenario === escenario.id_escenario ? 'selected' : ''}`}
+                  onClick={() => handleEscenarioClick(escenario)}
+                >
+                  {escenario.e_nombre}
+                </div>
+              ))
+            ) : (
+              <div className="no-results">No se encontraron escenarios</div>
+            )}
+          </div>
         </div>
       </div>
       

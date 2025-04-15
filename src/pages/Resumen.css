@@ -27,6 +27,12 @@ h2 {
   font-size: 1.5rem;
 }
 
+.scroll-to-top{
+  margin: auto;
+  display: flex;
+flex-direction: column;
+  
+}
 .loading, .error, .no-selection {
   display: flex;
   justify-content: center;

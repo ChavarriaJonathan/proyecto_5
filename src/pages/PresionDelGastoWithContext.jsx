@@ -257,26 +257,55 @@ const PresionDelGastoWithContext = () => {
   };
   
   const handleCostoXProyChange = (convocatoriaIndex, yearId, value) => {
-    const numValue = parseFloat(value.replace(/[$,]/g, ''));
-    if (isNaN(numValue) || numValue < 0) return;
-    
+    // Almacenar el valor exactamente como el usuario lo ingresa
     setEdited(true);
     const updatedConvocatorias = [...convocatorias];
     const convocatoria = updatedConvocatorias[convocatoriaIndex];
     
-    convocatoria.yearData[yearId].dc_costo_x_proyecto = numValue;
+    // Asegúrate de que el yearData existe
+    if (!convocatoria.yearData[yearId]) {
+      console.error(`No se encontró yearData para el id ${yearId}`);
+      return;
+    }
     
+    // Para manejar el caso del campo vacío
+    if (value === '' || value === '$') {
+      // Mantén un valor temporal mientras el campo está vacío
+      convocatoria.yearData[yearId].tempInput = value;
+      
+      // No actualices otros cálculos hasta que haya un valor válido
+      setConvocatorias(updatedConvocatorias);
+      return;
+    }
+    
+    // Si el campo no está vacío, limpiamos el valor para procesarlo
+    const cleanValue = value.replace(/[$,]/g, '');
+    const numValue = parseFloat(cleanValue);
+    
+    // Validación del número
+    if (isNaN(numValue) || numValue < 0) {
+      return;
+    }
+    
+    // Actualiza el valor numérico
+    convocatoria.yearData[yearId].dc_costo_x_proyecto = numValue;
+    // También guarda el valor de entrada actual para referencia
+    convocatoria.yearData[yearId].tempInput = value;
+    
+    // Recalcular subtotal
     const nuevosProyectos = convocatoria.yearData[yearId].dc_nuevos_proyectos;
     convocatoria.yearData[yearId].dc_subtotal = nuevosProyectos * numValue;
     
+    // Recalcular totales de la convocatoria
     const totalCostoXProyecto = Object.values(convocatoria.yearData).reduce(
-      (sum, data) => sum + data.dc_costo_x_proyecto, 
+      (sum, data) => sum + (data.dc_costo_x_proyecto || 0), 
       0
     );
     
     convocatoria.totales.costoXProyecto = totalCostoXProyecto;
     convocatoria.totales.costoConvocatoria = convocatoria.totales.nuevosProyectos * totalCostoXProyecto;
     
+    // Recalcular porcentajes
     recalcularPorcentajes(updatedConvocatorias, convocatoriaIndex);
     
     setConvocatorias(updatedConvocatorias);
@@ -600,15 +629,33 @@ const PresionDelGastoWithContext = () => {
                             <tr>
                               <td className="row-header">Costo X Proy</td>
                               {convocatoria.years.map(year => (
-                                <td key={`cxp-${year.id_años}`} className="data-cell editable">
-                                  <input
-                                    type="text"
-                                    value={formatCurrency(convocatoria.yearData[year.id_años]?.dc_costo_x_proyecto || 0)}
-                                    onChange={(e) => handleCostoXProyChange(convIndex, year.id_años, e.target.value)}
-                                    className="editable-input"
-                                  />
-                                </td>
-                              ))}
+  <td key={`cxp-${year.id_años}`} className="data-cell editable">
+    <input
+      type="text"
+      value={convocatoria.yearData[year.id_años]?.tempInput || formatCurrency(convocatoria.yearData[year.id_años]?.dc_costo_x_proyecto || 0)}
+      onChange={(e) => handleCostoXProyChange(convIndex, year.id_años, e.target.value)}
+      onBlur={(e) => {
+        const updatedConvocatorias = [...convocatorias];
+        const convocatoria = updatedConvocatorias[convIndex];
+        const yearData = convocatoria.yearData[year.id_años];
+        
+        // Al perder el foco, aseguramos que se muestre el formato correcto
+        if (yearData) {
+          // Eliminar la entrada temporal
+          delete yearData.tempInput;
+          
+          // Asegurar que hay un valor numérico
+          if (yearData.dc_costo_x_proyecto === undefined || yearData.dc_costo_x_proyecto === null) {
+            yearData.dc_costo_x_proyecto = 0;
+          }
+        }
+        
+        setConvocatorias(updatedConvocatorias);
+      }}
+      className="editable-input"
+    />
+  </td>
+))}
                             </tr>
                             <tr>
                               <td className="row-header">SUBTOTAL</td>

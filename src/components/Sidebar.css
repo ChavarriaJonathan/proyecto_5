@@ -80,6 +80,7 @@
 
 .search-container {
   margin-bottom: 15px;
+  position: relative;
 }
 
 .search-input {
@@ -246,7 +247,7 @@
 
 .sidebar-footer {
   margin-top: auto;
-  padding: 15px;
+  padding: 10px;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
@@ -310,5 +311,89 @@
   
   .escenarios-list, .convocatorias-list {
     max-height: 200px;
+  }
+}
+
+/* Estilos para la lista de escenarios sin acordeón */
+.escenarios-list-container {
+  margin-top: 15px;
+}
+
+.escenarios-list-title {
+  color: var(--color-secondary-light);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  border-left: 2px solid var(--color-secondary);
+}
+
+/* Estilos para las sugerencias de búsqueda */
+.search-suggestions {
+  position: absolute;
+  width: 95%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #4a0e27;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  margin-top: 5px;
+}
+
+.search-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.search-suggestion-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.search-suggestion-item .selected-icon {
+  color: var(--color-secondary-light);
+  font-size: 0.9rem;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding-right: 30px;
+}
+
+.search-container form {
+  display: flex;
+  width: 100%;
+}
+
+/* Personalización de la scrollbar para las sugerencias */
+.search-suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+/* Mejoras para la experiencia móvil */
+@media (max-width: 768px) {
+  .search-suggestions {
+    width: 90%;
+    max-height: 180px;
+  }
+  
+  .search-suggestion-item {
+    padding: 8px 12px;
+    font-size: 0.9rem;
   }
 }

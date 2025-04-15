@@ -4,6 +4,8 @@ import SidebarResumen from './SidebarResumen';
 import axios from 'axios';
 import './Resumen.css';
 import { FaFileAlt, FaChartPie, FaProjectDiagram, FaMoneyBillWave, FaExclamationTriangle, FaListUl, FaArrowUp } from 'react-icons/fa';
+import PDFExportButtonResumen from '../components/PDFExportButtonResumen';
+import PDFExportModalResumen from '../components/PDFExportModalResumen';
 
 const Resumen = () => {
   const { selectedEscenario, refreshTrigger } = useEscenario();
@@ -16,6 +18,7 @@ const Resumen = () => {
   const [allEscenariosData, setAllEscenariosData] = useState([]);
   const [loadingAllEscenarios, setLoadingAllEscenarios] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isPDFModalOpen, setIsPDFModalOpen] = useState(false);
   
   // Referencia para hacer scroll al inicio
   const topRef = useRef(null);
@@ -695,6 +698,14 @@ const Resumen = () => {
             <FaArrowUp />
           </div>
         )}
+
+        {selectedEscenario && <PDFExportButtonResumen onClick={() => setIsPDFModalOpen(true)} />}
+        <PDFExportModalResumen 
+          isOpen={isPDFModalOpen} 
+          onClose={() => setIsPDFModalOpen(false)} 
+          selectedEscenario={selectedEscenario}
+          allEscenariosData={allEscenariosData}
+        />
       </div>
     </div>
   );

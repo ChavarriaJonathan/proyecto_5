@@ -22,45 +22,7 @@
   font-weight: 600;
 }
 
-/* Aseguramos que la sección de escenarios esté siempre expandida */
-.resumen-container .accordion-container {
-  margin-bottom: 20px;
-}
-
-/* Hacemos que la lista de escenarios sea más grande para facilitar la selección */
-.resumen-container .escenario-item {
-  padding: 12px 15px;
-  margin-bottom: 8px;
-  transition: all 0.2s ease;
-}
-
-.resumen-container .escenario-item:hover {
-  transform: translateX(5px);
-}
-
-/* Estilo para mensajes de estado */
-.resumen-container .loading-message,
-.resumen-container .error-message,
-.resumen-container .no-results {
-  padding: 15px;
-  text-align: center;
-  border-radius: 4px;
-  margin: 10px 0;
-}
-
-.resumen-container .loading-message {
-  background-color: rgba(165, 127, 44, 0.1);
-}
-
-.resumen-container .error-message {
-  background-color: rgba(211, 47, 47, 0.1);
-}
-
-.resumen-container .no-results {
-  background-color: rgba(97, 18, 50, 0.05);
-}
-
-/* Estilos específicos para la opción "Mostrar todos los escenarios" */
+/* Estilos específicos para la opción "Resumen general" */
 .escenario-item.all-escenarios {
   background-color: rgba(165, 127, 44, 0.15);
   margin-bottom: 15px;
@@ -68,6 +30,7 @@
   border-left: 3px solid var(--color-secondary);
   display: flex;
   align-items: center;
+  padding: 12px 15px;
 }
 
 .escenario-item.all-escenarios:hover {
@@ -79,14 +42,102 @@
   color: white;
 }
 
-.escenario-item.all-escenarios svg {
+.escenario-item.all-escenarios .resumen-icon {
   margin-right: 8px;
   font-size: 0.9rem;
 }
 
-/* Separador después de la opción "Mostrar todos" */
+.escenario-item.all-escenarios span {
+  flex: 1;
+}
+
+/* Separador después de la opción "Resumen general" */
 .escenarios-separator {
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   margin: 5px 0 15px 0;
+}
+
+/* Estilos para la lista de escenarios sin acordeón */
+.escenarios-list-container {
+  margin-top: 15px;
+}
+
+.escenarios-list-title {
+  color: var(--color-secondary-light);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  border-left: 2px solid var(--color-secondary);
+}
+
+/* Estilos para las sugerencias de búsqueda */
+.search-suggestions {
+  position: absolute;
+  width: 95%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #4a0e27;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  margin-top: 5px;
+}
+
+.search-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.search-suggestion-item:hover {
+  background-color: var(--color-secondary);
+}
+
+.search-suggestion-item .selected-icon {
+  color: var(--color-secondary-light);
+  font-size: 0.9rem;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding-right: 30px;
+}
+
+.search-container form {
+  display: flex;
+  width: 100%;
+}
+
+/* Personalización de la scrollbar para las sugerencias */
+.search-suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+/* Mejoras para la experiencia móvil */
+@media (max-width: 768px) {
+  .search-suggestions {
+    width: 90%;
+    max-height: 180px;
+  }
+  
+  .search-suggestion-item {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
 }
