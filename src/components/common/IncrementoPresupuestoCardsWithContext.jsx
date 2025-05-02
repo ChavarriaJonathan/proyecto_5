@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaSave, FaMinus, FaPlus, FaPercentage, FaChartLine, FaExclamationTriangle } from 'react-icons/fa';
 import axios from 'axios';
 import './IncrementoPresupuestoCards.css';
-import { useEscenario } from './EscenarioContext';
+import { useEscenario } from '../../context/EscenarioContext';
 
 const IncrementoPresupuestoCardsWithContext = () => {
   const { 

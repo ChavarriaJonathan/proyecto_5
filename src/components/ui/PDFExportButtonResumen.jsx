@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaFilePdf } from 'react-icons/fa';
-import '../pages/PDFExportButton.css'; // Reutilizamos los estilos existentes
+import './PDFExportButton.css'; // Reutilizamos los estilos existentes
 
 const PDFExportButtonResumen = ({ onClick }) => {
   return (

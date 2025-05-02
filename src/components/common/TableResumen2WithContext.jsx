@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaSave, FaProjectDiagram, FaExclamationTriangle } from 'react-icons/fa';
 import axios from 'axios';
-import { useEscenario } from './EscenarioContext';
+import { useEscenario } from '../../context/EscenarioContext';
 import './TableResumen2.css';
 
 const TableResumen2WithContext = () => {

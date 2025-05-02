@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaChartPie, FaProjectDiagram, FaMoneyBillWave } from 'react-icons/fa';
-import ResumenChart from './ResumenChart';
-import './ResumenChart.css';
+import ResumenChart from '../components/common/ResumenChart';
+import '../components/common/ResumenChart.css';
 
 const ResumenDashboard = ({ resumenData }) => {
   if (!resumenData || !resumenData.años || resumenData.años.length === 0) {

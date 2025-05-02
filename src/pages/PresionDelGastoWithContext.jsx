@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import SidebarWithContext from '../components/SidebarWithContext';
+import SidebarWithContext from '../components/layout/SidebarWithContext';
 import './PresionDelGasto.css';
 import axios from 'axios';
 import { FaSave } from 'react-icons/fa';
-import IncrementoPresupuestoCardsWithContext from './IncrementoPresupuestoCardsWithContext';
-import TableResumen1WithContext from './TableResumen1WithContext';
-import TableResumen2WithContext from './TableResumen2WithContext';
-import PDFExportButton from './PDFExportButton';
-import PDFExportModal from '../components/PDFExportModal';
-import { useEscenario } from './EscenarioContext';
+import IncrementoPresupuestoCardsWithContext from '../components/common/IncrementoPresupuestoCardsWithContext';
+import TableResumen1WithContext from '../components/common/TableResumen1WithContext';
+import TableResumen2WithContext from '../components/common/TableResumen2WithContext';
+import PDFExportButton from '../components/ui/PDFExportButton';
+import PDFExportModal from '../components/ui/PDFExportModal';
+import { useEscenario } from '../context/EscenarioContext';
 
 const PresionDelGastoWithContext = () => {
   const {

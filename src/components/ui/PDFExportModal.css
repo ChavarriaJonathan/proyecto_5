@@ -296,6 +296,18 @@
     border-left: 4px solid var(--color-secondary);
     padding-left: 10px;
   }
+
+  /* Add styles for chart checkboxes with icons */
+.pdf-checkbox-container label svg {
+  margin-right: 5px;
+  color: var(--color-secondary);
+}
+
+/* Enhance chart rendering in PDF */
+.resumen-chart-wrapper canvas {
+  max-width: 100%;
+  height: auto !important;
+}
   
   @media (max-width: 768px) {
     .pdf-table-options {

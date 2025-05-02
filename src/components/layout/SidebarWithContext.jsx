@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaPlus, FaChartLine, FaFilter, FaSortAlphaDown, FaSortAlphaUp, FaSort, FaChevronDown, FaChevronRight, FaCheck } from 'react-icons/fa';
 import axios from 'axios';
-import { useEscenario } from '../pages/EscenarioContext';
+import { useEscenario } from '../../context/EscenarioContext';
 import './Sidebar.css';
-import NewScenarioModal from './NewScenarioModal';
+import NewScenarioModal from '../ui/NewScenarioModal';
 
 const SidebarWithContext = () => {
   const {

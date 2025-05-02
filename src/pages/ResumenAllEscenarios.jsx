@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaListUl, FaProjectDiagram, FaMoneyBillWave } from 'react-icons/fa';
-import ResumenChart from './ResumenChart';
+import ResumenChart from '../components/common/ResumenChart';
 
 const ResumenAllEscenarios = ({ allEscenariosData, loadingAllEscenarios }) => {
   if (loadingAllEscenarios) {

@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useEscenario } from './EscenarioContext';
-import SidebarResumen from './SidebarResumen';
+import { useEscenario } from '../context/EscenarioContext';
+import SidebarResumen from '../components/layout/SidebarResumen';
 import axios from 'axios';
 import './Resumen.css';
 import { FaExclamationTriangle } from 'react-icons/fa';
-import PDFExportButtonResumen from '../components/PDFExportButtonResumen';
-import PDFExportModalResumen from '../components/PDFExportModalResumen';
+import PDFExportButtonResumen from '../components/ui/PDFExportButtonResumen';
+import PDFExportModalResumen from '../components/ui/PDFExportModalResumen';
 
 // Import our new components
-import ResumenDashboard from '../Component/ResumenDashboard';
-import ResumenProyectosTable from '../Component/ResumenProyectosTable';
-import ResumenFinanzasTable from '../Component/ResumenFinanzasTable';
-import ResumenAllEscenarios from '../Component/ResumenAllEscenarios';
-import ResumenTabs from '../Component/ResumenTabs';
-import ScrollToTopButton from '../Component/ScrollToTopButton';
+import ResumenDashboard from './ResumenDashboard';
+import ResumenProyectosTable from './ResumenProyectosTable';
+import ResumenFinanzasTable from './ResumenFinanzasTable';
+import ResumenAllEscenarios from './ResumenAllEscenarios';
+import ResumenTabs from '../components/ui/ResumenTabs';
+import ScrollToTopButton from '../components/ui/ScrollToTopButton';
 
 const Resumen = () => {
   const { selectedEscenario, refreshTrigger } = useEscenario();

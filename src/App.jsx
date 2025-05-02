@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner'; // Importar Toaster de sonner
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 import Home from './components/Home';
 import PresionDelGastoWithContext from './pages/PresionDelGastoWithContext';
 import Resumen from './pages/Resumen';
-import { EscenarioProvider } from './pages/EscenarioContext';
+import { EscenarioProvider } from './context/EscenarioContext';
 
 function App() {
   return (

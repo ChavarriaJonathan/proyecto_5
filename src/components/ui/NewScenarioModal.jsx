@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaPlus, FaTimes, FaChevronRight, FaCheck } from 'react-icons/fa';
 import './NewScenarioModal.css';
-import { useEscenario } from '../pages/EscenarioContext';
+import { useEscenario } from '../../context/EscenarioContext';
 
 const NewScenarioModal = ({ isOpen, onClose }) => {
   const { triggerRefresh } = useEscenario();

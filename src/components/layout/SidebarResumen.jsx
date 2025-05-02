@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch, FaChartLine, FaListUl, FaCheck } from 'react-icons/fa';
 import axios from 'axios';
-import '../components/Sidebar.css';
+import './Sidebar.css';
 import './SidebarResumen.css';
-import { useEscenario } from './EscenarioContext';
+import { useEscenario } from '../../context/EscenarioContext';
 
 const SidebarResumen = () => {
   const {
